@@ -1,0 +1,39 @@
+:root{
+    font-family: Arial, Helvetica, sans-serif;
+    --primary-color: #b9c6d2;
+    --secondary-color: #d8dde9;
+    --tertiary-color: #edf0f8;
+}
+
+body{
+    background-color: #b9c6d2;
+    background: linear-gradient(
+        180deg,
+        #b9c6d2,
+        #d8dde9,
+        #edf0f8,
+    );
+    margin: 0;
+    min-height: 100vh;
+}
+
+h1{
+    text-align: center;
+    font-size: 2rem;
+}
+
+@media (min-width: 720px){
+    h1{
+        font-size: 2.4rem;
+    }
+}
+
+input{
+    border: none;
+    outline: none;
+}
+
+input:focus-visible{
+    box-shadow: inset 1px 1px 6px rgba(0, 0, 0, .1);
+    border: 1px solid #ff3e80;
+}
