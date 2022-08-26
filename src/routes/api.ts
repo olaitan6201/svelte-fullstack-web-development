@@ -14,11 +14,11 @@ export const api = (request : Request, param: any = null) => {
                 done: false
             }
             todos.push(item);
-            return true
+            return todos.slice()
 
         case "DELETE" :
             todos = todos.filter(todo => todo.uid !== param)
-            return true
+            return todos.slice()
         
         case "PATCH" :
             todos = todos.map((todo: Todo) => {
@@ -28,7 +28,7 @@ export const api = (request : Request, param: any = null) => {
                 }
                 return todo;
             })
-            return true    
+            return todos.slice()    
 
         default:
             return false
