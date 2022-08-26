@@ -1,7 +1,10 @@
-<script>
-// @ts-ignore
-import TodoItem from "$lib/todo-item.svelte"
-const title = "Todos"
+<script lang="ts">
+    // @ts-ignore
+    import TodoItem from "$lib/todo-item.svelte"
+    /** @type {import('./$types').PageData}*/
+    export let data: any;
+    let todos: Todo[] = data.body
+    const title = "Todos"
 </script>
 
 <svelte:head>
@@ -11,14 +14,15 @@ const title = "Todos"
 <div class="todos">
     <h1>{title}</h1>
     
-    <form action="" method="" class="new">
+    <form action="/todos.json" method="post" class="new">
         <input type="text" name="text" aria-label="Add a todo" placeholder="+ type to add a todo" />
     </form>
     
-    <TodoItem done />
-    <TodoItem />
-    <TodoItem />
-    <TodoItem />
+    <!-- {#if data.length > 0} -->
+        {#each todos as todo}
+            <TodoItem {todo} />
+        {/each}
+    <!-- {/if} -->
 </div>
 
 <style>

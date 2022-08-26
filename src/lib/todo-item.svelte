@@ -1,6 +1,6 @@
-<script>
-    export let done = false;
-    $: status = done ? 'done' : '';
+<script lang="ts">
+    export let todo: Todo
+    $: status = todo?.done ? 'done' : '';
 </script>
 
 <div class="todo {status}">
@@ -10,7 +10,7 @@
     </form>
 
     <form action="" method="" class="text">
-        <input type="text" />
+        <input type="text" value={todo.text}/>
         <button aria-label="Save todo" class="save"></button>
     </form>
 

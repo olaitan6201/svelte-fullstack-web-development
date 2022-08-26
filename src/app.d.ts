@@ -7,3 +7,9 @@ declare namespace App {
 	// interface PrivateEnv {}
 	// interface PublicEnv {}
 }
+
+type Todo = {
+	created_at: Date,
+	text: String,
+	done: boolean
+}
