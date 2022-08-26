@@ -1,10 +1,16 @@
 <script lang="ts">
     // @ts-ignore
     import TodoItem from "$lib/todo-item.svelte"
-    /** @type {import('./$types').PageData}*/
+    import { enhance } from "$lib/actions/form";
+    /** @type {import('./$types').PageData} */
     export let data: any;
     let todos: Todo[] = data.body
     const title = "Todos"
+
+    const processNewTodoResult = async (res: Response) => {
+        let body = await res.json();
+        if(body.status == 'success') todos = [...body.data];
+    }
 </script>
 
 <svelte:head>
@@ -14,13 +20,13 @@
 <div class="todos">
     <h1>{title}</h1>
     
-    <form action="/todos.json" method="post" class="new">
+    <form action="/todos.json" method="post" class="new" use:enhance={{result: processNewTodoResult}}>
         <input type="text" name="text" aria-label="Add a todo" placeholder="+ type to add a todo" />
     </form>
     
     <!-- {#if data.length > 0} -->
         {#each todos as todo}
-            <TodoItem {todo} />
+            <TodoItem {todo} on:res={(e) => processNewTodoResult(e.detail)}/>
         {/each}
     <!-- {/if} -->
 </div>
