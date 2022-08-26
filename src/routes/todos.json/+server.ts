@@ -17,7 +17,18 @@ export const GET = ({ request }:any) => {
 export const POST = async ({ request }: any) => {
     const req = await request.formData();
     const text = req.get('text');
+    // const res = api(request, text)
+    // if(res) throw redirect(302, '/');
+    // else throw error(405);
     const res = api(request, text)
-    if(res) throw redirect(302, '/');
-    else throw error(405);
+    if(typeof res !== 'boolean') return json({
+        status : 'success',
+        message : "Success",
+        data:  res
+    })
+
+    return json({
+        status : 'error',
+        message : "Unable to submit!"
+    })
 }

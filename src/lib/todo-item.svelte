@@ -1,19 +1,26 @@
 <script lang="ts">
+    import { createEventDispatcher } from "svelte";
+    import { enhance } from "./actions/form";
+
     export let todo: Todo
+
+    const dispatch = createEventDispatcher()
+
+    const handleResult = (res: Response) => dispatch('res', res);
 </script>
 
 <div class="todo" class:done={todo.done}>
-    <form action="/todos/{todo.uid}.json?_method=patch" method="post" >
+    <form action="/todos/{todo.uid}.json?_method=patch" method="post"  use:enhance={{result: handleResult}}>
         <input type="hidden" name="done" value={todo.done ? 'done' : 'notdone'} />
         <button aria-label="Mark done/not done" class="toggle"></button>
     </form>
 
-    <form action="/todos/{todo.uid}.json?_method=patch" method="post" class="text">
+    <form action="/todos/{todo.uid}.json?_method=patch" method="post" class="text" use:enhance={{result: handleResult}}>
         <input type="text" name="text" value={todo.text}/>
         <button aria-label="Save todo" class="save"></button>
     </form>
 
-    <form action="/todos/{todo.uid}.json?_method=delete" method="post">
+    <form action="/todos/{todo.uid}.json?_method=delete" method="post" use:enhance={{result: handleResult}}>
         <button aria-label="Delete todo" class="delete"></button>
     </form>
 </div>

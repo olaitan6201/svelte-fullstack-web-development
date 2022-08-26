@@ -4,11 +4,20 @@ import { api } from "../../api"
 /** @type {import('./$types').RequestHandler} */
 export const DELETE = ({ url, params, request }: any) => {
     const uid = params.uid
-    const deleted = api(request, uid)
     
-    if(deleted) throw redirect(302, '/')
-
-    throw error(405);
+    // if(deleted) throw redirect(302, '/')
+    // throw error(405);
+    const deleted = api(request, uid)
+    if(typeof deleted !== 'boolean') return json({
+        status : 'success',
+        message : "Success",
+        data:   deleted
+    })
+    
+    return json({
+        status : 'error',
+        message : "Unable to delete!"
+    })
 }
 
 export const PATCH = async ({ url, params, request }: any) => {
@@ -20,9 +29,17 @@ export const PATCH = async ({ url, params, request }: any) => {
 
     if(!data) throw error(404)
     
+    // if(updated) throw redirect(302, '/')
+    // throw error(405);
     const updated = api(request, data)
+    if(typeof updated !== 'boolean') return json({
+        status : 'success',
+        message : "Success",
+        data:   updated
+    })
     
-    if(updated) throw redirect(302, '/')
-
-    throw error(405);
+    return json({
+        status : 'error',
+        message : "Unable to update!"
+    })
 }
