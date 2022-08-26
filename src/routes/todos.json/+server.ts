@@ -1,15 +1,15 @@
 // import type { RequestHandler } from "@sveltejs/kit"
 
 import { error, json, redirect } from "@sveltejs/kit";
+import { api } from "../api";
 
-let todos: Todo[] = [];
 
 /** @type {import('./$types').RequestHandler} */
-export const GET = () => {
-
+export const GET = ({ request }:any) => {
+    let todos = api(request) ?? []
     return json({
         status : 'success',
-        message : "Hello from API",
+        message : "Success",
         data: todos
     })
 }
@@ -17,11 +17,7 @@ export const GET = () => {
 export const POST = async ({ request }: any) => {
     const req = await request.formData();
     const text = req.get('text');
-    const item = {
-        text,
-        created_at: new Date(),
-        done: false
-    }
-    todos.push(item);
-    throw redirect(302, '/');
+    const res = api(request, text)
+    if(res) throw redirect(302, '/');
+    else throw error(405);
 }
