@@ -18,5 +18,7 @@
         background-color: #777;
         text-align: center;
         font-weight: bold;
+        width: 100%;
+        padding: 10px;
     }
 </style>
