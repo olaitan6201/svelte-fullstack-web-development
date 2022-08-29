@@ -6,9 +6,11 @@
 		"dev": "vite dev",
 		"predev": "prisma migrate dev",
 		"build": "vite build",
+		"postbuild": "cp prisma/schema.prisma .vercel/output/functions/render.func/ && cp node_modules/@prisma/engines/*query* .vercel/output/functions/render.func/",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"vercel-build": "prisma migrate deploy && npm run build"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "next",
