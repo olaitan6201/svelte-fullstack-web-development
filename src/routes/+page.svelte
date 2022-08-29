@@ -4,8 +4,13 @@
     import { enhance } from "$lib/actions/form";
     /** @type {import('./$types').PageData} */
     export let data: any;
+    // console.log(data);
+    
     let todos: Todo[] = data.body
     const title = "Todos"
+
+    // $: console.log(todos);
+    
 
     const processNewTodoResult = async (res: Response) => {
         let body = await res.json();

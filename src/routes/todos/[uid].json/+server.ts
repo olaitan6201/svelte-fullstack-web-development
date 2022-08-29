@@ -2,12 +2,12 @@ import { error, json, redirect } from "@sveltejs/kit"
 import { api } from "../../api"
 
 /** @type {import('./$types').RequestHandler} */
-export const DELETE = ({ url, params, request }: any) => {
+export const DELETE = async ({ url, params, request }: any) => {
     const uid = params.uid
     
     // if(deleted) throw redirect(302, '/')
     // throw error(405);
-    const deleted = api(request, uid)
+    const deleted = await api(request, uid)
     if(typeof deleted !== 'boolean') return json({
         status : 'success',
         message : "Success",
@@ -31,7 +31,7 @@ export const PATCH = async ({ url, params, request }: any) => {
     
     // if(updated) throw redirect(302, '/')
     // throw error(405);
-    const updated = api(request, data)
+    const updated = await api(request, data)
     if(typeof updated !== 'boolean') return json({
         status : 'success',
         message : "Success",

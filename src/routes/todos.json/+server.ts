@@ -5,8 +5,8 @@ import { api } from "../api";
 
 
 /** @type {import('./$types').RequestHandler} */
-export const GET = ({ request }:any) => {
-    let todos = api(request) ?? []
+export const GET = async ({ request }:any) => {
+    let todos = await api(request)
     return json({
         status : 'success',
         message : "Success",
@@ -20,7 +20,7 @@ export const POST = async ({ request }: any) => {
     // const res = api(request, text)
     // if(res) throw redirect(302, '/');
     // else throw error(405);
-    const res = api(request, text)
+    const res = await api(request, text)
     if(typeof res !== 'boolean') return json({
         status : 'success',
         message : "Success",
