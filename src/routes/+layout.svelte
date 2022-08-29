@@ -4,8 +4,19 @@
 
 <main>
     <slot />
+
+    <footer>
+        Copyright
+    </footer>
 </main>
 
-<footer>
-    Copyright
-</footer>
+<style>
+    footer{
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        background-color: #777;
+        text-align: center;
+        font-weight: bold;
+    }
+</style>

@@ -9,12 +9,15 @@
     let todos: Todo[] = data.body
     const title = "Todos"
 
+    let todoTitle = ''
+
     // $: console.log(todos);
     
 
     const processNewTodoResult = async (res: Response) => {
         let body = await res.json();
         if(body.status == 'success') todos = [...body.data];
+        todoTitle = '';
     }
 </script>
 
@@ -26,7 +29,7 @@
     <h1>{title}</h1>
     
     <form action="/todos.json" method="post" class="new" use:enhance={{result: processNewTodoResult}}>
-        <input type="text" name="text" aria-label="Add a todo" placeholder="+ type to add a todo" />
+        <input type="text" name="text" bind:value={todoTitle} aria-label="Add a todo" placeholder="+ type to add a todo" />
     </form>
     
     <!-- {#if data.length > 0} -->
